@@ -8,17 +8,89 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      $("#animate").click(function () {
-        $("#piece-1").animate({ left: "100px" }, 2000);
-      });
-    });
+      // Function to create puzzle pieces with images
+      function createPuzzlePiece(id, imageUrl) {
+        return $('<div>', {
+          class: 'puzzle-piece',
+          id: 'piece-' + id,
+          style: "position:absolute; top:50"
+        }).append($('<img>', { src: imageUrl }));
+      }
+
+      // Initial setup: create puzzle pieces with images and append them to the container
+      const puzzleImages = [
+        'images/piece1.webp',
+        'images/piece2.webp',
+        'images/piece3.webp',
+        'images/piece4.webp',
+        'images/piece5.webp',
+        'images/piece6.webp',
+        'images/piece7.webp',
+        'images/piece8.webp',
+        'images/piece9.webp',
+      ];
+
+      for (let i = 1; i <= 9; i++) {
+        const imageUrl = puzzleImages.shift();
+        $('#puzzle-container').append(createPuzzlePiece(i, imageUrl));
+      }
+
+      // Function to move every piece but one to their correct positions
+      function movePiecesToFinalPositions() {
+        // Define the final positions for each puzzle piece
+        const finalPositions = {
+          'piece-1': { top: '100', left: '0' },
+          'piece-2': { top: '98', left: '93px' },
+          'piece-3': { top: '98', left: '182px' },
+          'piece-4': { top: '175px', left: '0' },
+          'piece-5': { top: '175px', left: '93px' },
+          'piece-6': { top: '175px', left: '186px' },
+          'piece-7': { top: '250px', left: '0px' },
+          'piece-8': { top: '250px', left: '93px' },
+        };
+
+        // Animate each puzzle piece to its final position
+        $.each(finalPositions, function (pieceId, finalPosition) {
+          $('#' + pieceId).animate(finalPosition, 2000);
+        });
+      }
+
+      // Move every piece but one to their correct positions when the page loads
+      movePiecesToFinalPositions();
+      function animatePiece(direction) {
+      const piece = $('#piece-9'); // Assume the last piece is the movable one
+      const verticaldist = 40.5;
+      const lateraldist = 59;
+  
+      switch (direction) {
+        case 'up':
+          piece.animate({ top: `-=${verticaldist}px` });
+          break;
+        case 'down':
+          piece.animate({ top: `+=${verticaldist}px` });
+          break;
+        case 'left':
+          piece.animate({ left: `-=${lateraldist}px` });
+          break;
+        case 'right':
+          piece.animate({ left: `+=${lateraldist}px` });
+          break;
+      }
+    }
+  
+    // Button click event listeners
+    $('#up').on('click', function () { animatePiece('up'); });
+    $('#down').on('click', function () { animatePiece('down'); });
+    $('#left').on('click', function () { animatePiece('left'); });
+    $('#right').on('click', function () { animatePiece('right'); });
+  })
   </script>
 </head>
 
 <body>
   <div id="puzzle-container">
     <!-- Puzzle pieces will be dynamically created here -->
-    <img src="images/piece1.webp" id="piece-1" style="position:absolute; top:50px">
+    <!-- <img src="images/piece1.webp" id="piece-1" style="position:absolute; top:50px"> -->
   </div>
   <button id="animate">Animate</button>
   <button id="up">Up</button>
