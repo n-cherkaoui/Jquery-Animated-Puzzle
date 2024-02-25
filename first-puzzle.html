@@ -4,9 +4,53 @@
 <head>
   <meta charset="UTF-8">
   <title>First Puzzle Page</title>
-  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <style>
+    #container
+    {
+      width:850px;
+      border: 2px solid black;
+      border-radius: 20px;
+      margin:10px auto;
+      padding: 10px;
+    }
+    #pieceContainer
+    {
+      width:400px;
+      height:400px;
+      border:1px solid black;
+      float:left;
+      text-align: center;
+      font-size: 30px;
+      line-height: 400px;
+    }
+    #puzzle-container
+    {
+      width:400px;
+      height:400px;
+      border:1px solid black;
+      float: right;
+    }
+    ul
+    {
+      list-style: none;
+      text-align: center;
+      /* display: flex; */
+    }
+    li {
+      display: inline-block;
+    }
+    ul button
+    {
+      width:100px;
+      border:1px solid black;
+      font-size: 20px;
+      border-radius: 5px;
+      padding:5px;
+      margin-top:10px;
+    }
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script>
+  <!-- <script>
     $(document).ready(function () {
       // Function to create puzzle pieces with images
       function createPuzzlePiece(id, imageUrl) {
@@ -57,47 +101,49 @@
 
       // Move every piece but one to their correct positions when the page loads
       movePiecesToFinalPositions();
+
       function animatePiece(direction) {
-      const piece = $('#piece-9'); // Assume the last piece is the movable one
-      const verticaldist = 40.5;
-      const lateraldist = 59;
-  
-      switch (direction) {
-        case 'up':
-          piece.animate({ top: `-=${verticaldist}px` });
-          break;
-        case 'down':
-          piece.animate({ top: `+=${verticaldist}px` });
-          break;
-        case 'left':
-          piece.animate({ left: `-=${lateraldist}px` });
-          break;
-        case 'right':
-          piece.animate({ left: `+=${lateraldist}px` });
-          break;
+        const piece = $('#piece-9'); // Assume the last piece is the movable one
+        const verticaldist = 40.5;
+        const lateraldist = 59;
+
+        switch (direction) {
+          case 'up':
+            piece.animate({ top: `-=${verticaldist}px` });
+            break;
+          case 'down':
+            piece.animate({ top: `+=${verticaldist}px` });
+            break;
+          case 'left':
+            piece.animate({ left: `-=${lateraldist}px` });
+            break;
+          case 'right':
+            piece.animate({ left: `+=${lateraldist}px` });
+            break;
+        }
       }
-    }
-  
-    // Button click event listeners
-    $('#up').on('click', function () { animatePiece('up'); });
-    $('#down').on('click', function () { animatePiece('down'); });
-    $('#left').on('click', function () { animatePiece('left'); });
-    $('#right').on('click', function () { animatePiece('right'); });
-  })
+
+      // Button click event listeners
+      $('#up').on('click', function () { animatePiece('up'); });
+      $('#down').on('click', function () { animatePiece('down'); });
+      $('#left').on('click', function () { animatePiece('left'); });
+      $('#right').on('click', function () { animatePiece('right'); });
+    }) -->
   </script>
 </head>
 
 <body>
-  <div id="puzzle-container">
-    <!-- Puzzle pieces will be dynamically created here -->
-    <!-- <img src="images/piece1.webp" id="piece-1" style="position:absolute; top:50px"> -->
+  <div id="container">
+    <div id="pieceContainer"></div>
+    <div id="puzzle-container"></div>
+    <ul id="buttons">
+      <!-- <li><button id="animate">Animate</button></li> -->
+      <li><button id="up">Up</button></li>
+      <li><button id="down">Down</button></li>
+      <li><button id="left">Left</button></li>
+      <li><button id="right">Right</button></li>
+    </ul>
   </div>
-  <button id="animate">Animate</button>
-  <button id="up">Up</button>
-  <button id="down">Down</button>
-  <button id="left">Left</button>
-  <button id="right">Right</button>
-
 </body>
 
 </html>
