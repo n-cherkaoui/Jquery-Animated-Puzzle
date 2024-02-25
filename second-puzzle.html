@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>First Puzzle Page</title>
+  <style>
+    #puzzle-heading {
+      text-align: center;
+    }
+
+    #container {
+      width: 850px;
+      border: 2px solid black;
+      border-radius: 20px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+
+    #piece-container {
+      width: 400px;
+      height: 300px;
+      border: 1px solid black;
+      float: left;
+      text-align: center;
+      font-size: 30px;
+      line-height: 400px;
+      position: relative;
+    }
+
+    #puzzle-container {
+      width: 280px;
+      height: 225px;
+      border: 1px solid black;
+      float: right;
+      margin-left: 50px;
+      margin-right: 50px;
+      margin-top: 75px;
+    }
+
+    ul {
+      list-style: none;
+      text-align: center;
+    }
+
+    li {
+      display: inline-block;
+    }
+
+    ul button {
+      width: 100px;
+      border: 1px solid black;
+      font-size: 20px;
+      border-radius: 5px;
+      padding: 5px;
+      margin-top: 10px;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      background-color: #555;
+    }
+  </style>
+  <!-- Include jQuery and jQuery UI -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // Function to create puzzle pieces with images
+      function createPuzzlePiece(id, imageUrl) {
+        // Get the dimensions of the puzzle container
+        const containerWidth = $('#piece-container').width();
+        const containerHeight = $('#piece-container').height();
+
+        // Get the dimensions of the puzzle piece
+        const pieceWidth = 120; // Adjust this based on your puzzle piece size
+        const pieceHeight = 105; // Adjust this based on your puzzle piece size
+
+        // Calculate random top and left positions within the valid range
+        const randomTop = Math.floor(Math.random() * (containerHeight - pieceHeight));
+        const randomLeft = Math.floor(Math.random() * (containerWidth - pieceWidth));
+
+        return $('<img>', {
+          class: 'puzzle-piece',
+          id: 'piece-' + id,
+          src: imageUrl,
+          style: `position:absolute; top: ${randomTop}px; left: ${randomLeft}px;`
+        });
+      }
+
+      // Initial setup: create puzzle pieces with images and append them to the container
+      const puzzleImages = [
+        'images/piece1.webp',
+        'images/piece2.webp',
+        'images/piece3.webp',
+        'images/piece4.webp',
+        'images/piece5.webp',
+        'images/piece6.webp',
+        'images/piece7.webp',
+        'images/piece8.webp',
+        'images/piece9.webp',
+      ];
+
+      for (let i = 1; i <= 9; i++) {
+        const imageUrl = puzzleImages.shift();
+        $('#piece-container').append(createPuzzlePiece(i, imageUrl));
+      }
+
+      // Array to store initial random positions of puzzle pieces
+      let initialRandomPositions = [];
+
+      // Make puzzle pieces draggable using jQuery UI
+      $('.puzzle-piece').draggable({
+        stack: '.puzzle-piece',
+        cursor: 'move',
+        revert: false,
+        start: function (event, ui) {
+          // Store the initial random position before dragging
+          const id = $(this).attr('id');
+          const top = $(this).position().top;
+          const left = $(this).position().left;
+          initialRandomPositions.push({ id: id, top: top, left: left });
+        }
+      });
+
+      // jQuery menu click event
+      $('#menu-puzzle1').on('click', function () {
+        // Replace this with actual navigation logic to Puzzle 2
+        window.location.href = 'first-puzzle.html'; // Redirect to the second puzzle page
+      });
+
+      // Reset button click event
+      $('#reset').on('click', function () {
+        // Reset each puzzle piece to a new random position within the container
+        initialRandomPositions.forEach(function (position) {
+          const randomTop = Math.floor(Math.random() * ($('#piece-container').height() - 105));
+          const randomLeft = Math.floor(Math.random() * ($('#piece-container').width() - 120));
+          $('#' + position.id).css({ top: randomTop, left: randomLeft });
+        });
+      });
+    })
+  </script>
+</head>
+
+<body>
+  <nav>
+    <a id="menu-puzzle1">Puzzle 1</a>
+  </nav>
+  <h1 id="puzzle-heading">Puzzle 2</h1>
+  <div id="container">
+    <div id="piece-container"></div>
+    <div id="puzzle-container"></div>
+    <ul id="buttons">
+      <!-- <li><button id="animate">Animate</button></li> -->
+      <li><button id="reset">Reset</button></li>
+    </ul>
+  </div>
+</body>
+
+</html>
