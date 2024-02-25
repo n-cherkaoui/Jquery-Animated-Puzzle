@@ -13,20 +13,21 @@
       margin:10px auto;
       padding: 10px;
     }
-    #pieceContainer
+    #piece-container
     {
       width:400px;
-      height:400px;
+      height:300px;
       border:1px solid black;
       float:left;
       text-align: center;
       font-size: 30px;
       line-height: 400px;
+      position: relative;
     }
     #puzzle-container
     {
       width:400px;
-      height:400px;
+      height:300px;
       border:1px solid black;
       float: right;
     }
@@ -50,15 +51,16 @@
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <!-- <script>
+  <script>
     $(document).ready(function () {
       // Function to create puzzle pieces with images
       function createPuzzlePiece(id, imageUrl) {
-        return $('<div>', {
+        return $('<img>', {
           class: 'puzzle-piece',
           id: 'piece-' + id,
-          style: "position:absolute; top:50"
-        }).append($('<img>', { src: imageUrl }));
+          style: "position:absolute; left: 0",
+          src: imageUrl
+        });
       }
 
       // Initial setup: create puzzle pieces with images and append them to the container
@@ -76,21 +78,21 @@
 
       for (let i = 1; i <= 9; i++) {
         const imageUrl = puzzleImages.shift();
-        $('#puzzle-container').append(createPuzzlePiece(i, imageUrl));
+        $('#piece-container').append(createPuzzlePiece(i, imageUrl));
       }
 
       // Function to move every piece but one to their correct positions
       function movePiecesToFinalPositions() {
         // Define the final positions for each puzzle piece
         const finalPositions = {
-          'piece-1': { top: '100', left: '0' },
-          'piece-2': { top: '98', left: '93px' },
-          'piece-3': { top: '98', left: '182px' },
-          'piece-4': { top: '175px', left: '0' },
-          'piece-5': { top: '175px', left: '93px' },
-          'piece-6': { top: '175px', left: '186px' },
-          'piece-7': { top: '250px', left: '0px' },
-          'piece-8': { top: '250px', left: '93px' },
+          // 'piece-1': { top: '100', left: '0' },
+          // 'piece-2': { top: '98', left: '93px' },
+          // 'piece-3': { top: '98', left: '182px' },
+          // 'piece-4': { top: '175px', left: '0' },
+          // 'piece-5': { top: '175px', left: '93px' },
+          // 'piece-6': { top: '175px', left: '186px' },
+          // 'piece-7': { top: '250px', left: '0px' },
+          // 'piece-8': { top: '250px', left: '93px' },
         };
 
         // Animate each puzzle piece to its final position
@@ -128,13 +130,13 @@
       $('#down').on('click', function () { animatePiece('down'); });
       $('#left').on('click', function () { animatePiece('left'); });
       $('#right').on('click', function () { animatePiece('right'); });
-    }) -->
+    })
   </script>
 </head>
 
 <body>
   <div id="container">
-    <div id="pieceContainer"></div>
+    <div id="piece-container"></div>
     <div id="puzzle-container"></div>
     <ul id="buttons">
       <!-- <li><button id="animate">Animate</button></li> -->
