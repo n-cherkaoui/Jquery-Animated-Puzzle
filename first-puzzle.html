@@ -5,55 +5,72 @@
   <meta charset="UTF-8">
   <title>First Puzzle Page</title>
   <style>
-    #puzzle-heading
-    {
+    #puzzle-heading {
       text-align: center;
     }
-    #container
-    {
-      width:850px;
+
+    #container {
+      width: 850px;
       border: 2px solid black;
       border-radius: 20px;
-      margin:10px auto;
+      margin: 10px auto;
       padding: 10px;
     }
-    #piece-container
-    {
-      width:280px;
-      height:225px;
-      border:1px solid black;
-      float:left;
+
+    #piece-container {
+      width: 280px;
+      height: 225px;
+      border: 1px solid black;
+      float: left;
       text-align: center;
       font-size: 30px;
       line-height: 400px;
       position: relative;
       margin-right: 100px;
     }
-    #puzzle-container
-    {
-      width:280px;
-      height:225px;
-      border:1px solid black;
+
+    #puzzle-container {
+      width: 280px;
+      height: 225px;
+      border: 1px solid black;
       float: right;
       margin-left: 100px;
     }
-    ul
-    {
+
+    ul {
       list-style: none;
       text-align: center;
-      /* display: flex; */
     }
+
     li {
       display: inline-block;
     }
-    ul button
-    {
-      width:100px;
-      border:1px solid black;
+
+    ul button {
+      width: 100px;
+      border: 1px solid black;
       font-size: 20px;
       border-radius: 5px;
-      padding:5px;
-      margin-top:10px;
+      padding: 5px;
+      margin-top: 10px;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      background-color: #555;
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -154,11 +171,20 @@
       $('#down').on('click', function () { animatePiece('down'); });
       $('#left').on('click', function () { animatePiece('left'); });
       $('#right').on('click', function () { animatePiece('right'); });
+
+      // jQuery menu click event
+      $('#menu-puzzle2').on('click', function () {
+        // Replace this with actual navigation logic to Puzzle 2
+          window.location.href = 'second-puzzle.html'; // Redirect to the second puzzle page
+      });
     })
   </script>
 </head>
 
 <body>
+  <nav>
+    <a id="menu-puzzle2">Puzzle 2</a>
+  </nav>
   <h1 id="puzzle-heading">Puzzle 1</h1>
   <div id="container">
     <div id="piece-container"></div>
