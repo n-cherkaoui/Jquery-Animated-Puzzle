@@ -111,35 +111,35 @@
 
       // Function to move every piece but one to their correct positions
       function movePiecesToFinalPositions() {
-  var puzzleContainer = $('#puzzle-container');
+        var puzzleContainer = $('#puzzle-container');
 
-  const finalPositions = {
-    'piece-1': { top: 0, left: 0 },
-    'piece-2': { top: 0, left: 93 },
-    'piece-3': { top: 0, left: 182 },
-    'piece-4': { top: 75, left: 0 },
-    'piece-5': { top: 73, left: 93 },
-    'piece-6': { top: 73, left: 186 },
-    'piece-7': { top: 150, left: 0 },
-    'piece-8': { top: 148, left: 93 },
-  };
+        const finalPositions = {
+          'piece-1': { top: 0, left: 0 },
+          'piece-2': { top: 0, left: 93 },
+          'piece-3': { top: 0, left: 182 },
+          'piece-4': { top: 75, left: 0 },
+          'piece-5': { top: 73, left: 93 },
+          'piece-6': { top: 73, left: 186 },
+          'piece-7': { top: 150, left: 0 },
+          'piece-8': { top: 148, left: 93 },
+        };
 
-  // Animate each puzzle piece to its final position
-  $.each(finalPositions, function (pieceId, finalPosition) {
-    var piece = $('#' + pieceId);
-    var piecePosition = piece.position(); // Relative position within the puzzle container
+        // Animate each puzzle piece to its final position
+        $.each(finalPositions, function (pieceId, finalPosition) {
+          var piece = $('#' + pieceId);
+          var piecePosition = piece.position(); // Relative position within the puzzle container
 
-    // Calculate the difference between the current position and the final position
-    var topDifference = finalPosition.top - piecePosition.top;
-    var leftDifference = finalPosition.left - piecePosition.left;
+          // Calculate the difference between the current position and the final position
+          var topDifference = finalPosition.top - piecePosition.top;
+          var leftDifference = finalPosition.left - piecePosition.left;
 
-    // Animate the piece to its final position
-    piece.animate({
-      top: '+=' + topDifference,
-      left: '+=' + leftDifference
-    }, 2000);
-  });
-}
+          // Animate the piece to its final position
+          piece.animate({
+            top: '+=' + topDifference,
+            left: '+=' + leftDifference
+          }, 2000);
+        });
+      }
 
 
       // Move every piece but one to their correct positions when the page loads
@@ -160,22 +160,22 @@
         switch (direction) {
           case 'up':
             if (currentPosition.top - verticaldist >= 0) {
-              piece.animate({ top: `-=${verticaldist}px` });
+              piece.animate({ top: `-=${verticaldist}px` }, 20);
             }
             break;
           case 'down':
             if (currentPosition.top + verticaldist <= maxY) {
-              piece.animate({ top: `+=${verticaldist}px` });
+              piece.animate({ top: `+=${verticaldist}px` }, 20);
             }
             break;
           case 'left':
             if (currentPosition.left - lateraldist >= 0) {
-              piece.animate({ left: `-=${lateraldist}px` });
+              piece.animate({ left: `-=${lateraldist}px` }, 20);
             }
             break;
           case 'right':
             if (currentPosition.left + lateraldist <= maxX) {
-              piece.animate({ left: `+=${lateraldist}px` });
+              piece.animate({ left: `+=${lateraldist}px` }, 20);
             }
             break;
         }
@@ -190,7 +190,7 @@
       // jQuery menu click event
       $('#menu-puzzle2').on('click', function () {
         // Replace this with actual navigation logic to Puzzle 2
-          window.location.href = 'second-puzzle.html'; // Redirect to the second puzzle page
+        window.location.href = 'second-puzzle.html'; // Redirect to the second puzzle page
       });
     })
   </script>
