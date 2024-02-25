@@ -15,21 +15,23 @@
     }
     #piece-container
     {
-      width:400px;
-      height:300px;
+      width:280px;
+      height:225px;
       border:1px solid black;
       float:left;
       text-align: center;
       font-size: 30px;
       line-height: 400px;
       position: relative;
+      margin-right: 100px;
     }
     #puzzle-container
     {
-      width:400px;
-      height:300px;
+      width:280px;
+      height:225px;
       border:1px solid black;
       float: right;
+      margin-left: 100px;
     }
     ul
     {
@@ -83,16 +85,19 @@
 
       // Function to move every piece but one to their correct positions
       function movePiecesToFinalPositions() {
-        // Define the final positions for each puzzle piece
+        const manualadj = 25;
+        var position = $('#puzzle-container').offset()
+        position.left -= manualadj;
+
         const finalPositions = {
-          // 'piece-1': { top: '100', left: '0' },
-          // 'piece-2': { top: '98', left: '93px' },
-          // 'piece-3': { top: '98', left: '182px' },
-          // 'piece-4': { top: '175px', left: '0' },
-          // 'piece-5': { top: '175px', left: '93px' },
-          // 'piece-6': { top: '175px', left: '186px' },
-          // 'piece-7': { top: '250px', left: '0px' },
-          // 'piece-8': { top: '250px', left: '93px' },
+          'piece-1': { top: '0', left: position.left + 0 + 'px' },
+          'piece-2': { top: '0', left: position.left + 93 + 'px' },
+          'piece-3': { top: '0', left: position.left + 182 + 'px' },
+          'piece-4': { top: '75px', left: position.left + 0 + 'px' },
+          'piece-5': { top: '73px', left: position.left + 93 + 'px' },
+          'piece-6': { top: '73px', left: position.left + 186 + 'px' },
+          'piece-7': { top: '150px', left: position.left + 0 + 'px' },
+          'piece-8': { top: '148px', left: position.left + 93 + 'px' },
         };
 
         // Animate each puzzle piece to its final position
@@ -106,21 +111,36 @@
 
       function animatePiece(direction) {
         const piece = $('#piece-9'); // Assume the last piece is the movable one
-        const verticaldist = 40.5;
-        const lateraldist = 59;
+        const verticaldist = 50;
+        const lateraldist = 50.2;
+
+        // Get the current position of the piece
+        var currentPosition = piece.offset();
+
+        // Set boundaries based on the screen size
+        var maxX = $(window).width() - piece.width();
+        var maxY = $(window).height() - piece.height();
 
         switch (direction) {
           case 'up':
-            piece.animate({ top: `-=${verticaldist}px` });
+            if (currentPosition.top - verticaldist >= 0) {
+              piece.animate({ top: `-=${verticaldist}px` });
+            }
             break;
           case 'down':
-            piece.animate({ top: `+=${verticaldist}px` });
+            if (currentPosition.top + verticaldist <= maxY) {
+              piece.animate({ top: `+=${verticaldist}px` });
+            }
             break;
           case 'left':
-            piece.animate({ left: `-=${lateraldist}px` });
+            if (currentPosition.left - lateraldist >= 0) {
+              piece.animate({ left: `-=${lateraldist}px` });
+            }
             break;
           case 'right':
-            piece.animate({ left: `+=${lateraldist}px` });
+            if (currentPosition.left + lateraldist <= maxX) {
+              piece.animate({ left: `+=${lateraldist}px` });
+            }
             break;
         }
       }
