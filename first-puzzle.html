@@ -21,20 +21,21 @@
       width: 280px;
       height: 225px;
       border: 1px solid black;
-      float: left;
+      float: right;
       text-align: center;
       font-size: 30px;
       line-height: 400px;
       position: relative;
-      margin-right: 100px;
+      margin-left: 100px;
     }
 
     #puzzle-container {
       width: 280px;
       height: 225px;
       border: 1px solid black;
-      float: right;
-      margin-left: 100px;
+      float: left;
+      position: relative;
+      margin-right: 100px;
     }
 
     ul {
@@ -101,31 +102,45 @@
 
       for (let i = 1; i <= 9; i++) {
         const imageUrl = puzzleImages.shift();
+        if (i == 9) {
+          $('#puzzle-container').append(createPuzzlePiece(i, imageUrl));
+          break
+        }
         $('#piece-container').append(createPuzzlePiece(i, imageUrl));
       }
 
       // Function to move every piece but one to their correct positions
       function movePiecesToFinalPositions() {
-        const manualadj = 425;
-        var position = $('#puzzle-container').offset()
-        position.left -= manualadj;
+  var puzzleContainer = $('#puzzle-container');
 
-        const finalPositions = {
-          'piece-1': { top: '0', left: position.left + 0 + 'px' },
-          'piece-2': { top: '0', left: position.left + 93 + 'px' },
-          'piece-3': { top: '0', left: position.left + 182 + 'px' },
-          'piece-4': { top: '75px', left: position.left + 0 + 'px' },
-          'piece-5': { top: '73px', left: position.left + 93 + 'px' },
-          'piece-6': { top: '73px', left: position.left + 186 + 'px' },
-          'piece-7': { top: '150px', left: position.left + 0 + 'px' },
-          'piece-8': { top: '148px', left: position.left + 93 + 'px' },
-        };
+  const finalPositions = {
+    'piece-1': { top: 0, left: 0 },
+    'piece-2': { top: 0, left: 93 },
+    'piece-3': { top: 0, left: 182 },
+    'piece-4': { top: 75, left: 0 },
+    'piece-5': { top: 73, left: 93 },
+    'piece-6': { top: 73, left: 186 },
+    'piece-7': { top: 150, left: 0 },
+    'piece-8': { top: 148, left: 93 },
+  };
 
-        // Animate each puzzle piece to its final position
-        $.each(finalPositions, function (pieceId, finalPosition) {
-          $('#' + pieceId).animate(finalPosition, 2000);
-        });
-      }
+  // Animate each puzzle piece to its final position
+  $.each(finalPositions, function (pieceId, finalPosition) {
+    var piece = $('#' + pieceId);
+    var piecePosition = piece.position(); // Relative position within the puzzle container
+
+    // Calculate the difference between the current position and the final position
+    var topDifference = finalPosition.top - piecePosition.top;
+    var leftDifference = finalPosition.left - piecePosition.left;
+
+    // Animate the piece to its final position
+    piece.animate({
+      top: '+=' + topDifference,
+      left: '+=' + leftDifference
+    }, 2000);
+  });
+}
+
 
       // Move every piece but one to their correct positions when the page loads
       movePiecesToFinalPositions();
